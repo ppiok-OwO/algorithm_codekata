@@ -5,9 +5,12 @@ function solution(n) {
   var answer = 0;
   // parseInt를 사용하기 위해 n을 문자열로 변환
 
-  n.toString().parseInt(n, 3);
+  n = n.toString(3).split("").reverse().join("");
 
-  
+  answer = parseInt(n, 3);
 
   return answer;
 }
+
+console.log(solution(45));
+console.log(solution(125));
