@@ -24,12 +24,12 @@ function solution(sizes) {
   let maxWidth = Math.max(
     ...sizes.map((size) => {
       return size[0];
-    })
+    }),
   );
   let maxHeight = Math.max(
     ...sizes.map((size) => {
       return size[1];
-    })
+    }),
   );
 
   answer = maxWidth * maxHeight;
@@ -43,7 +43,7 @@ console.log(
     [30, 70],
     [60, 30],
     [80, 40],
-  ])
+  ]),
 ); // 4000
 console.log(
   solution([
@@ -52,7 +52,7 @@ console.log(
     [8, 15],
     [14, 7],
     [5, 15],
-  ])
+  ]),
 ); // 120
 console.log(
   solution([
@@ -61,5 +61,5 @@ console.log(
     [6, 16],
     [18, 7],
     [7, 11],
-  ])
+  ]),
 ); // 133
