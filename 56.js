@@ -10,25 +10,25 @@
 // (최저 사과 점수) x (한 상자에 담긴 사과 개수) x (상자의 개수) = 2 x 4 x 1 = 8
 // 사과의 최대 점수 k, 한 상자에 들어가는 사과의 수 m, 사과들의 점수 score가 주어졌을 때, 과일 장수가 얻을 수 있는 최대 이익을 return하는 solution 함수를 완성해주세요.
 
+// => 애초에 k가 최대 점수라서 딱히 고려 안 해도 되는 거였음
+// 상자 개수도 위에서 굳이 곱해줬는데 곱할 이유가 없음 따로따로 값을 구해서 더해주면 됨..
+
 function solution(k, m, score) {
   var answer = 0;
   let boxAmount = Math.floor(score.length / m);
   let arr = [];
-  // (k보다는 작은 최저 사과 점수)*m*boxAmount의 총합이 최댓값이 되는 함수
-  // 최솟값은 상자에 포함되는 순간 k가 된다.
-  // 내림차순으로 sort()한 다음 큰값 m-1개를 묶고 m번째가 k보다 크면 k보다 작은 수를 찾아서 묶는다.
 
-  for (let i = 0; i < boxAmount; i++) {
-    arr.push(score.splice(0, m - 1));
-    if (score[0] > k) {
-      arr.find
-    }
-  }
-  console.log(arr);
+  // 내림차순 정렬
+  // m번째 요소가 최솟값
+  arr = score
+    .sort((a, b) => b - a)
+    .filter((ele, index) => {
+      return index % m === m - 1;
+    });
 
-  // arr.reduce((acc, curr) => {
-  //   return acc + curr[2] * m * boxAmount;
-  // }, 0);
+  answer = arr.reduce((acc, curr) => {
+    return acc + curr * m;
+  }, 0);
 
   return answer;
 }
