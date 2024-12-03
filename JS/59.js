@@ -13,17 +13,23 @@
 
 // 정수 n, m과 다시 페인트를 칠하기로 정한 구역들의 번호가 담긴 정수 배열 section이 매개변수로 주어질 때 롤러로 페인트칠해야 하는 최소 횟수를 return 하는 solution 함수를 작성해 주세요.
 
+// 벽의 총길이 n미터
+// 롤러의 너비 m미터
+
+// 롤러의 시작점을 인덱스라고쳤을 때 n-4까지만 칠할 수 있다.
+// 최소로 칠하려면 최대한 안 겹치게 칠해야 한다.
+// section의 첫 요소부터 칠하기
+
 function solution(n, m, section) {
-  // 벽의 총길이 n미터
-  // 롤러의 너비 m미터
+  let count = 0; // 페인트칠 횟수
+  let lastPainted = 0; // 마지막으로 칠한 구역
 
-  // 롤러의 시작점을 인덱스라고쳤을 때 n-4까지만 칠할 수 있다.
-  // 최소로 칠하려면 최대한 안 겹치게 칠해야 한다.
-  // section의 각 요소마다 칠하되, 뺀 값이 m보다 작으면 한 번 칠한 걸로 하기
-
-  let count = section.length;
-  for (let i = 0; i < section.length - 1; i++) {
-    // section[i] + m 이상인 요소가 있으면 한번 더 칠해야 함
+  for (let s of section) {
+    // 현재 구역이 이미 칠한 범위를 벗어났다면
+    if (s > lastPainted) {
+      count++; // 새로운 페인트칠
+      lastPainted = s + m - 1; // 롤러로 최대한 칠할 수 있는 구역
+    }
   }
 
   return count;
