@@ -10,16 +10,31 @@
 function solution(s) {
   var answer = 0;
   let fistLetter = s[0];
+  let fistLetterCount = 0;
   let otherLetterCount = 0;
 
   for (let i = 0; i < s.length; i++) {
     if (s[i] !== fistLetter) {
-      otherLetterCount++;
+      otherLetterCount += 1;
+    } else if (s[i] === fistLetter) {
+      fistLetterCount += 1;
     }
-    if((i+1) = otherLetterCount) {
-      
+
+    if (fistLetterCount === otherLetterCount && i + 1 < s.length) {
+      s = s.slice(0, i + 1) + ',' + s.slice(i + 1);
+      fistLetter = s[i + 2];
+      otherLetterCount = 0;
+      fistLetterCount = 0;
+      i += 1;
     }
   }
 
+  console.log(s);
+  answer = s.split(',').length;
+
   return answer;
 }
+
+console.log(solution('banana'));
+console.log(solution('abracadabra'));
+console.log(solution('aaabbaccccabba'));
