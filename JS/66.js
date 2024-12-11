@@ -14,30 +14,41 @@
 function solution(keymap, targets) {
   var answer = []; // targets에 담긴 문자열을 치기 위한 최소 횟수 배열
 
-  // targets를 가장 빠르게 칠 수 있는 최단경로를 구해야 한다.
-  // 뭘 이용하는 게 빠르지? search...?
+  let countArr = [];
+  let totalCount = 0;
+  let min = [];
 
-  targets[0];
+  // keymap[0]의 문자열에 대하여 targets[0][0]과 같은 글자가 존재하는가?
+  // keymap[1]의 문자열에 대하여 targets[0][0]과 같은 글자가 존재하는가?
+  // keymap[2]의 문자열에 대하여 targets[0][0]과 같은 글자가 존재하는가?
 
-  keymap.forEach((key) => {
-    // for (let i = 0; i < targets.length; i++) {
-    //   for (let j = 0; j < targets[i].length; j++) {
-    //     key.search(targets[i][j]);
-    //   }
-    // }
+  for (let i = 0; i < targets.length; i++) {
+    for (let j = 0; j < targets[i].length; j++) {
+      keymap.forEach((key) => {
+        if (key.search(targets[i][j]) !== -1) {
+          countArr.push(key.search(targets[i][j]) + 1);
+        }
+      });
+      // console.log(countArr);
+      if (!countArr.length) {
+        min = [-1];
+        break;
+      }
+      min.push(Math.min(...countArr));
+      countArr = [];
+    }
+    // console.log(min);
 
-    // keymap의 첫 글자들이 targets[0][0]과 같은 글자인가?
-    // 아니라면 count++ 하고 keymap의 두 번째 글자들과 비교하기
-    // 맞다면 count++ 하고 break
-
-    keymap.forEach((key) => {
-      key[0];
-    });
-  });
+    totalCount = min.reduce((acc, curr) => {
+      return acc + curr;
+    }, 0);
+    answer.push(totalCount);
+    min = [];
+  }
 
   return answer;
 }
 
 console.log(solution(['ABACD', 'BCEFD'], ['ABCD', 'AABB'])); // [9, 4]
 console.log(solution(['AA'], ['B'])); // [-1]
-console.log(solution(['AGZ', 'BSSS'], ['ASA', 'BGZ'])); // [9, 4]
+console.log(solution(['AGZ', 'BSSS'], ['ASA', 'BGZ'])); // [4, 6]
