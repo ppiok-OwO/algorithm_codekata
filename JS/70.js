@@ -6,56 +6,54 @@
 
 // 점 S에서 점 E로 드래그를 하면 바탕화면에서 두 격자점을 각각 왼쪽 위, 오른쪽 아래로 하는 직사각형 내부에 있는 모든 파일이 선택됩니다.
 
+// function solution(wallpaper) {
+//   let minX = Number.MAX_SAFE_INTEGER;
+//   let minY = Number.MAX_SAFE_INTEGER;
+//   let maxX = Number.MIN_SAFE_INTEGER;
+//   let maxY = Number.MIN_SAFE_INTEGER;
+
+//   // wallpaper 배열을 돌면서 "#"의 위치를 찾아 최소 및 최대 좌표를 갱신
+//   wallpaper.forEach((row, rowIndex) => {
+//     if (row.includes("#")) {
+//       let firstFolder = row.indexOf("#");
+//       let lastFolder = row.lastIndexOf("#");
+
+//       // x 좌표 (행 기준)
+//       minX = Math.min(minX, rowIndex);
+//       maxX = Math.max(maxX, rowIndex);
+//       // y 좌표 (열 기준)
+//       minY = Math.min(minY, firstFolder);
+//       maxY = Math.max(maxY, lastFolder);
+//     }
+//   });
+
+//   // 결과 반환: 시작점 (minX, minY), 끝점 (maxX + 1, maxY + 1)
+//   return [minX, minY, maxX + 1, maxY + 1];
+// }
+
 function solution(wallpaper) {
-  var answer = []; // 시작점과 끝점을 배열에 담아서 반환
+  let minX = Number.MAX_SAFE_INTEGER;
+  let minY = Number.MAX_SAFE_INTEGER;
+  let maxX = Number.MIN_SAFE_INTEGER;
+  let maxY = Number.MIN_SAFE_INTEGER;
 
-  // wallpaper의 요소마다 첫 번째#의 인덱스와 마지막 #의 인덱스를 구해보자
-  let folderIndex = [];
-  wallpaper.forEach((element, index) => {
-    let firstFolder = element.indexOf('#');
-    if (firstFolder === -1) {
-      firstFolder = null;
-    }
-    let firstFolderIndex = [index, firstFolder];
-    let lastFolder = element.lastIndexOf('#');
-    if (lastFolder === -1) {
-      lastFolder = null;
-    }
-    let lastFolderIndex = [index, lastFolder];
+  // wallpaper 배열을 돌면서 "#"의 위치를 찾아 최소 및 최대 좌표를 갱신
+  wallpaper.forEach((row, rowIndex) => {
+    if (row.includes('#')) {
+      let firstFolder = row.indexOf('#');
+      let lastFolder = row.lastIndexOf('#');
 
-    folderIndex.push([firstFolderIndex, lastFolderIndex]);
-  });
-
-  let minX = null;
-  let minY = null;
-  folderIndex.forEach((element, index) => {
-    for (let i = 0; i < element.length; i++) {
-      // 최소 x좌표는 y가 null이 아닐 때
-      if (element[i][1] !== null && minX === null) {
-        minX = index;
-      }
-      if (minY === null || element[i][1] < minY) {
-        minY = element[i][1];
-      }
+      // x 좌표 (행 기준)
+      minX = Math.min(minX, rowIndex);
+      maxX = Math.max(maxX, rowIndex);
+      // y 좌표 (열 기준)
+      minY = Math.min(minY, firstFolder);
+      maxY = Math.max(maxY, lastFolder);
     }
   });
 
-  let maxX = null;
-  let maxY = null;
-  folderIndex.forEach((element, index) => {
-    for (let i = 0; i < element.length; i++) {
-      if (element[i][1] !== null) {
-        maxX = index;
-      }
-      if (maxY === null || element[i][1] > maxY) {
-        maxY = element[i][1];
-      }
-    }
-  });
-
-  let folderCoordinate = [minX, minY, maxX + 1, maxY + 1];
-
-  return folderCoordinate;
+  // 결과 반환: 시작점 (minX, minY), 끝점 (maxX + 1, maxY + 1)
+  return [minX, minY, maxX + 1, maxY + 1];
 }
 
 console.log(solution(['.#...', '..#..', '...#.'])); // [0, 1, 3, 4]
