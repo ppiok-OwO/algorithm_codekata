@@ -29,7 +29,6 @@ function solution(brown, yellow) {
       }
     }
   }
-
   return answer;
 }
 
